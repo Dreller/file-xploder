@@ -2,8 +2,15 @@
 # github.com/Dreller/xploder
 class xploder{
 
+    # You can customize those values for your own needs.
+    # More customization will come, please, see the Wiki page
+    # https://github.com/Dreller/xploder/wiki/Customizing-xploder
+    # for all info about customizations.
     private $prefix = 'temp_wip_';
     private $parts = 8;
+
+    # Those are working variables.  If you change them, they
+    # will be overwritten.
     private $file = '';
     private $dir = '';
     private $key = '';
@@ -36,12 +43,14 @@ class xploder{
     }
     
     public function rebuild($folder, $key){
+        # Set the working directory and key
         $this->dir = $folder;
         $this->key = $key;
         
         # Go to the folder
         chdir($this->dir);
         
+        # Merge all files in one encrypted file
         $cmd = 'cat ' . $this->prefix . '* > temp';
         exec($cmd);
         
@@ -69,9 +78,6 @@ class xploder{
         unlink('temp');
         file_put_contents('temp', $unlocked);       
     }
-    
-    
-
 
     /**
      * Set the number of parts to explode the file.
